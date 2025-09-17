@@ -24,12 +24,12 @@ public class Post {
     private String content;
 
     @ManyToOne
-    @Column(name = "USER_ID")
+    @JoinColumn(name = "USER_ID")
     private User userId;
 
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Comment> comments;
 }

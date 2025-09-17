@@ -20,11 +20,11 @@ public class Comment {
     private String text;
 
     @ManyToOne
-    @Column(name = "POST_ID")
+    @JoinColumn(name = "POST_ID")
     private Post postId;
 
     @ManyToOne
-    @Column(name = "USER_ID")
+    @JoinColumn(name = "USER_ID")
     private User userId;
 
     @Column(name = "CREATED_AT")

@@ -83,7 +83,7 @@ public class PostService {
     public PostResponse getPost(Long postId){
         Post post = postQueryService.getPost(postId);
 
-        List<Comment> comments = commentQueryService.getCommentByPost(postId);
+        List<Comment> comments = commentQueryService.getCommentByPost(post);
 
         PostResponse response = new PostResponse();
         List<PostResponse.CommentResponse> commentResponseList = new ArrayList<>();
@@ -110,6 +110,8 @@ public class PostService {
         PageRequest pageRequest = PageRequest.of(page,size);
         Page<Post> posts = postQueryService.getAll(pageRequest);
 
+        List<Comment> comments = commentQueryService.getAll();
+
         List<PostListResponse> postListResponses = new ArrayList<>();
 
         posts.forEach(post -> {
@@ -118,7 +120,7 @@ public class PostService {
             response.setTitle(post.getTitle());
             response.setContent(post.getContent());
             response.setAuthorName(post.getUserId().getName());
-            response.setCommentCount(post.getComments().size());
+            response.setCommentCount(comments.stream().filter(data -> data.getPostId() == post).toList().size());
 
             postListResponses.add(response);
         });
